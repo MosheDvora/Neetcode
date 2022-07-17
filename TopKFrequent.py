@@ -1,6 +1,3 @@
-nums1 = [1]
-
-
 
 def k_most_frequent(nums, k):
     nums_set = set(nums)
@@ -15,31 +12,26 @@ def k_most_frequent(nums, k):
 
 def k_most_frequent2(nums, k):
     # Sort by largest recurrence
-    sort_freq_nums = sorted(nums, reverse=True, key=nums.count)
+
+    # sort_freq_nums = sorted(nums, reverse=True, key=nums.count)
+    sort_freq_nums = sorted(nums, reverse=True, key=lambda x: nums.count(x))
     # Sort the set by the largest recurrence from sort_freq_nums
     order_freq_nums = sorted(set(sort_freq_nums), key=sort_freq_nums.index)
     # Printing the k most frequent from order_freq_nums
-    for i in range(k):
-        if i <= len(order_freq_nums):
-            print(f"{order_freq_nums[i]} ", end="")
 
-    # freq = [1 for i in range(10)]
-    # print(freq)
-    # count = {}
-    # for n in nums:
-    #     count[n] = 1 + count.get(n, 0)
-    # print(count)
-    # count.get()
-    # for item in count.values():
-    #     freq.append(item)
+    print(order_freq_nums[:k])
 
 
+def k_most_frequent3(nums, k):
+    d = {}
+    for i in nums:
+        d[i] = d.get(i, 0) + 1
+
+    tuples = sorted(d.items(), key=lambda x: x[1], reverse=True)
+
+    return [x[0] for x in tuples][:k]
 
 
 nums = [5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 4, 4, 4, 4]
 k = 2
-k_most_frequent2(nums, k)
-
-
-
-# k_most_frequent(nums,k)
+print(k_most_frequent2(nums, k))
